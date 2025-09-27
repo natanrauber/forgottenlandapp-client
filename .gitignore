@@ -149,6 +149,3 @@ app.*.map.json
 
 # FVM Version Cache
 .fvm/
-
-build/*
-!build/web
