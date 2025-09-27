@@ -1,0 +1,80 @@
+name: forgottenland
+description: Forgotten Land App
+publish_to: "none"
+
+version: 25.09.26+1
+
+environment:
+  sdk: "3.6.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_web_plugins:
+    sdk: flutter
+  forgottenlandapp_models:
+    git:
+      url: "https://github.com/natanrauber/forgottenlandapp-models"
+      ref: master
+  forgottenlandapp_utils:
+    git:
+      url: "https://github.com/natanrauber/forgottenlandapp-utils"
+      ref: master
+  forgottenlandapp_adapters:
+    git:
+      url: "https://github.com/natanrauber/forgottenlandapp-adapters"
+      ref: master
+  cupertino_icons: ^1.0.0
+  dropdown_search: ^5.0.6
+  url_launcher: ^6.0.10
+  flutter_svg: ^2.0.10+1
+  intl: ^0.19.0
+  device_info_plus: ^11.3.0
+  get: ^4.6.5
+  package_info_plus: ^9.0.0
+  firebase_core: ^4.1.1
+  firebase_analytics: ^12.0.2
+  firebase_crashlytics: ^5.0.2
+  font_awesome_flutter: ^10.5.0
+  firebase_performance: ^0.11.1
+  crypto: ^3.0.3
+  shared_preferences: ^2.2.3
+  hovering: ^1.0.4
+  screenshot: ^3.0.0
+  share_plus: ^12.0.0
+
+dev_dependencies:
+  flutter_launcher_icons: ^0.14.4
+  lints: ^5.0.0
+  dart_code_metrics: ^4.19.2
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon.png"
+  remove_alpha_ios: true
+  web:
+    generate: true
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/
+    - assets/creatures/
+    - assets/icons/
+    - assets/icons/battleye_type/
+    - assets/icons/location/
+    - assets/icons/news_type/
+    - assets/icons/pvp_type/
+    - assets/icons/rank/
+    - assets/images/
+    - assets/images/background/
+    - assets/images/sponsor/
+    - assets/outfit/
+    - assets/svg/
+
+  fonts:
+    - family: MartianMono
+      fonts:
+        - asset: assets/fonts/MartianMono/MartianMono.ttf

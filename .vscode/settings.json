@@ -1,0 +1,6 @@
+{
+  "cmake.sourceDirectory": "${workspaceFolder}/linux",
+  "editor.wordWrapColumn": 120,
+  "dart.lineLength": 120,
+  "dart.flutterSdkPath": ".fvm/versions/3.27.0"
+}

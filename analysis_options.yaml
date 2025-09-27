@@ -1,0 +1,27 @@
+include: package:lints/recommended.yaml
+
+analyzer:
+  language:
+    strict-inference: true
+    strict-raw-types: true
+
+linter:
+  rules:
+    always_specify_types: true
+    prefer_single_quotes: true
+    sort_constructors_first: true
+    prefer_expression_function_bodies: true
+    prefer_conditional_assignment: true
+    prefer_if_elements_to_conditional_expressions: true
+    sort_pub_dependencies: false
+    directives_ordering: false
+    avoid_dynamic_calls: false
+    prefer_relative_imports: true
+    always_use_package_imports: false
+
+dart_code_metrics:
+  rules:
+    no-unused-imports: true
+    # fvm dart run dart_code_metrics:metrics check-unused-files lib
+    # fvm dart run dart_code_metrics:metrics check-unused-code lib
+    no-unused-files: true
