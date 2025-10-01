@@ -1,8 +1,9 @@
 import 'package:forgottenlandapp_adapters/adapters.dart';
 import 'package:forgottenlandapp_models/models.dart';
+import 'package:forgottenlandapp_utils/utils.dart';
 
 import '../../../controllers/controller.dart';
-import '../../../utils/src/paths.dart';
+import '../../../main.dart';
 
 class LiveStreamsController extends Controller {
   LiveStreamsController(this.httpClient);
@@ -17,7 +18,7 @@ class LiveStreamsController extends Controller {
     isLoading.value = true;
     streams.clear();
 
-    response = await httpClient.get('${PATH.forgottenLandApi}/livestreams');
+    response = await httpClient.get('${env[EnvVar.pathForgottenLandApi]}/livestreams');
 
     if (response.success && response.dataAsMap['data'] is List) {
       for (final dynamic e in response.dataAsMap['data'] as List<dynamic>) {

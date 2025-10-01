@@ -5,7 +5,7 @@ import 'package:forgottenlandapp_models/models.dart';
 import 'package:forgottenlandapp_utils/utils.dart';
 import 'package:get/get.dart';
 
-import '../utils/src/paths.dart';
+import '../main.dart';
 import '../utils/src/routes.dart';
 import 'controller.dart';
 
@@ -26,7 +26,7 @@ class HomeController extends Controller {
 
   Future<MyHttpResponse> getNews({bool showLoading = true}) async {
     if (showLoading) isLoading.value = true;
-    final MyHttpResponse response = await httpClient.get('${PATH.tibiaDataApi}/news/latest');
+    final MyHttpResponse response = await httpClient.get('${env[EnvVar.pathTibiaDataApi]}/news/latest');
 
     if (response.success) {
       final List<News> aux = <News>[];
@@ -43,7 +43,7 @@ class HomeController extends Controller {
   Future<MyHttpResponse> getOverview() async {
     isLoading.value = true;
 
-    final MyHttpResponse response = await httpClient.get('${PATH.forgottenLandApi}/highscores/overview');
+    final MyHttpResponse response = await httpClient.get('${env[EnvVar.pathForgottenLandApi]}/highscores/overview');
 
     if (response.success) {
       final Overview overview = Overview.fromJson(

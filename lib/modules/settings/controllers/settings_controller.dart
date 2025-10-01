@@ -1,7 +1,9 @@
-import '../../../controllers/controller.dart';
-import '../models/feature_model.dart';
-import '../../../utils/src/paths.dart';
 import 'package:forgottenlandapp_adapters/adapters.dart';
+import 'package:forgottenlandapp_utils/utils.dart';
+
+import '../../../controllers/controller.dart';
+import '../../../main.dart';
+import '../models/feature_model.dart';
 
 class SettingsController extends Controller {
   SettingsController(this.httpClient);
@@ -16,7 +18,7 @@ class SettingsController extends Controller {
 
     isLoading.value = true;
 
-    final MyHttpResponse response = await httpClient.get('${PATH.forgottenLandApi}/settings/features');
+    final MyHttpResponse response = await httpClient.get('${env[EnvVar.pathForgottenLandApi]}/settings/features');
 
     if (response.success && response.dataAsMap['data'] is List) {
       for (final dynamic e in response.dataAsMap['data'] as List<dynamic>) {

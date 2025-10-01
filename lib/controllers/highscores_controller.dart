@@ -4,8 +4,8 @@ import 'package:forgottenlandapp_models/models.dart';
 import 'package:forgottenlandapp_utils/utils.dart';
 import 'package:get/get.dart';
 
+import '../main.dart';
 import '../rxmodels/world_rxmodel.dart';
-import '../utils/src/paths.dart';
 import '../views/widgets/widgets.dart';
 import 'controller.dart';
 import 'online_controller.dart';
@@ -94,7 +94,7 @@ class HighscoresController extends Controller {
       if (cat == 'Online time') cat = '$cat+$timeframe';
 
       response = await httpClient.get(
-        '${PATH.forgottenLandApi}/highscores/$world/$cat/$pageCtrl'.toLowerCase().replaceAll(' ', ''),
+        '${env[EnvVar.pathForgottenLandApi]}/highscores/$world/$cat/$pageCtrl'.toLowerCase().replaceAll(' ', ''),
       );
 
       if (response.statusCode == 204 || response.statusCode == 404) {

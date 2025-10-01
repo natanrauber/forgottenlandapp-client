@@ -1,9 +1,10 @@
 import 'package:forgottenlandapp_adapters/adapters.dart';
 import 'package:forgottenlandapp_models/models.dart';
+import 'package:forgottenlandapp_utils/utils.dart';
 import 'package:get/get.dart';
 
 import '../../../controllers/controller.dart';
-import '../../../utils/src/paths.dart';
+import '../../../main.dart';
 import '../../../views/widgets/src/fields/custom_text_field.widget.dart';
 
 class BooksController extends Controller {
@@ -23,7 +24,7 @@ class BooksController extends Controller {
 
     isLoading.value = true;
 
-    response = await httpClient.get('${PATH.forgottenLandApi}/books');
+    response = await httpClient.get('${env[EnvVar.pathForgottenLandApi]}/books');
 
     if (response.success && response.dataAsMap['data'] is List) {
       for (final dynamic e in response.dataAsMap['data'] as List<dynamic>) {

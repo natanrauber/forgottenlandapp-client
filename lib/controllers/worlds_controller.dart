@@ -2,7 +2,7 @@ import 'package:forgottenlandapp_adapters/adapters.dart';
 import 'package:forgottenlandapp_models/models.dart';
 import 'package:forgottenlandapp_utils/utils.dart';
 
-import '../utils/src/paths.dart';
+import '../main.dart';
 import 'controller.dart';
 
 class WorldsController extends Controller {
@@ -24,7 +24,7 @@ class WorldsController extends Controller {
     MyHttpResponse? response;
 
     try {
-      response = await httpClient.get('${PATH.tibiaDataApi}/worlds');
+      response = await httpClient.get('${env[EnvVar.pathTibiaDataApi]}/worlds');
       aux = response.dataAsMap['worlds']['regular_worlds'] as List<dynamic>?;
     } catch (e) {
       customPrint(e.toString(), color: PrintColor.red);

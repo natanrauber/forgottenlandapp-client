@@ -1,12 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../controllers/npcs_controller.dart';
+import 'package:forgottenlandapp_models/models.dart';
+import 'package:forgottenlandapp_utils/utils.dart';
+import 'package:get/get.dart';
+
+import '../../../../main.dart';
 import '../../../../theme/colors.dart';
 import '../../../../views/widgets/src/images/web_image.dart';
 import '../../../../views/widgets/src/other/better_text.dart';
 import '../../../../views/widgets/src/other/clickable_container.dart';
-import 'package:forgottenlandapp_models/models.dart';
-import 'package:get/get.dart';
+import '../../controllers/npcs_controller.dart';
 
 class NpcWidget extends StatefulWidget {
   const NpcWidget(this.npc);
@@ -64,7 +67,7 @@ class _NpcWidgetState extends State<NpcWidget> {
       );
 
   Widget _sprite() => WebImage(
-        widget.npc.imgUrl,
+        '${env[EnvVar.pathTibiaArchive]}/images/npcs/${widget.npc.name?.replaceAll(' ', '_')}.png',
         backgroundColor: Colors.transparent,
         borderColor: Colors.transparent,
       );

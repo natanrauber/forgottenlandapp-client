@@ -5,8 +5,8 @@ import 'package:forgottenlandapp_models/models.dart';
 import 'package:forgottenlandapp_utils/utils.dart';
 import 'package:get/get.dart';
 
+import '../main.dart';
 import '../rxmodels/world_rxmodel.dart';
-import '../utils/src/paths.dart';
 import '../utils/src/routes.dart';
 import '../views/widgets/widgets.dart';
 import 'controller.dart';
@@ -43,7 +43,7 @@ class OnlineController extends Controller {
 
     if (worldsCtrl.list.isEmpty) await worldsCtrl.getWorlds();
 
-    final MyHttpResponse response = await httpClient.get('${PATH.forgottenLandApi}/online/now');
+    final MyHttpResponse response = await httpClient.get('${env[EnvVar.pathForgottenLandApi]}/online/now');
     if (response.success) _populateList(rawList, response);
 
     await filterList();
@@ -108,7 +108,7 @@ class OnlineController extends Controller {
 
     if (worldsCtrl.list.isEmpty) await worldsCtrl.getWorlds();
 
-    final MyHttpResponse response = await httpClient.get('${PATH.forgottenLandApi}/online/time/$day');
+    final MyHttpResponse response = await httpClient.get('${env[EnvVar.pathForgottenLandApi]}/online/time/$day');
     if (response.success) _populateList(onlineTimes, response);
 
     isLoading.value = false;

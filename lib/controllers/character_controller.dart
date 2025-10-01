@@ -2,8 +2,8 @@ import 'package:forgottenlandapp_adapters/adapters.dart';
 import 'package:forgottenlandapp_models/models.dart';
 import 'package:forgottenlandapp_utils/utils.dart';
 
+import '../main.dart';
 import '../rxmodels/character_rxmodel.dart';
-import '../utils/src/paths.dart';
 import '../views/widgets/widgets.dart';
 import 'controller.dart';
 
@@ -22,7 +22,7 @@ class CharacterController extends Controller {
 
     try {
       final String name = searchCtrl.text.toLowerCase();
-      response = await httpClient.get('${PATH.forgottenLandApi}/character/${name.replaceAll(' ', '%20')}');
+      response = await httpClient.get('${env[EnvVar.pathForgottenLandApi]}/character/${name.replaceAll(' ', '%20')}');
       if (response.success) character.value = Character.fromJson(response.dataAsMap['data'] as Map<String, dynamic>);
     } catch (e) {
       customPrint(e, color: PrintColor.red);

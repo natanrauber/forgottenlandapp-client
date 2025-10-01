@@ -4,8 +4,10 @@ import 'dart:ui' as ui;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:forgottenlandapp_models/models.dart';
+import 'package:forgottenlandapp_utils/utils.dart';
 import 'package:get/get.dart';
 
+import '../../../../main.dart';
 import '../../../../theme/colors.dart';
 import '../../../../views/widgets/src/images/web_image.dart';
 import '../../../../views/widgets/src/other/better_text.dart';
@@ -101,7 +103,7 @@ class _BookWidgetState extends State<BookWidget> {
           physics: const NeverScrollableScrollPhysics(),
           itemCount: widget.book.sprites.length,
           itemBuilder: (_, int i) => _spriteItemBuilder(
-            'https://raw.githubusercontent.com/s2ward/tibia/main/images/books/${widget.book.sprites[i]}.png',
+            '${env[EnvVar.pathTibiaArchive]}/images/books/${widget.book.sprites[i]}.png',
           ),
         ),
       );

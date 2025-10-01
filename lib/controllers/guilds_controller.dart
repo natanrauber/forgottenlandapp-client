@@ -1,7 +1,8 @@
 import 'package:forgottenlandapp_adapters/adapters.dart';
 import 'package:forgottenlandapp_models/models.dart';
+import 'package:forgottenlandapp_utils/utils.dart';
 
-import '../utils/src/paths.dart';
+import '../main.dart';
 import 'controller.dart';
 
 class GuildsController extends Controller {
@@ -17,12 +18,12 @@ class GuildsController extends Controller {
     MyHttpResponse response;
 
     for (final World world in worlds) {
-      response = await httpClient.get('${PATH.tibiaDataApi}/guilds/${world.name}');
+      response = await httpClient.get('${env[EnvVar.pathTibiaDataApi]}/guilds/${world.name}');
 
       final WorldGuilds worldGuildList = WorldGuilds.fromJson(response.dataAsMap);
 
       for (final Active activeGuild in worldGuildList.guilds?.active ?? <Active>[]) {
-        response = await httpClient.get('${PATH.tibiaDataApi}/guild/${activeGuild.name}.json');
+        response = await httpClient.get('${env[EnvVar.pathTibiaDataApi]}/guild/${activeGuild.name}.json');
 
         final Guild guild = Guild.fromJson(response.dataAsMap);
 

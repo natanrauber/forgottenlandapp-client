@@ -5,8 +5,8 @@ import 'package:get/get_rx/get_rx.dart';
 
 import '../../../controllers/controller.dart';
 import '../../../controllers/worlds_controller.dart';
+import '../../../main.dart';
 import '../../../rxmodels/world_rxmodel.dart';
-import '../../../utils/src/paths.dart';
 import '../../../views/widgets/src/fields/custom_text_field.widget.dart';
 
 class BazaarController extends Controller {
@@ -36,7 +36,7 @@ class BazaarController extends Controller {
 
     if (worldsCtrl.list.isEmpty) await worldsCtrl.getWorlds();
 
-    final MyHttpResponse response = await httpClient.get('${PATH.forgottenLandApi}/bazaar');
+    final MyHttpResponse response = await httpClient.get('${env[EnvVar.pathForgottenLandApi]}/bazaar');
     if (response.success) _populateList(auctionList, response);
 
     await filterList();

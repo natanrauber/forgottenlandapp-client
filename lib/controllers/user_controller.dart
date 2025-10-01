@@ -7,8 +7,8 @@ import 'package:forgottenlandapp_utils/utils.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../main.dart';
 import '../rxmodels/user_rxmodel.dart';
-import '../utils/src/paths.dart';
 import '../views/widgets/widgets.dart';
 import 'controller.dart';
 
@@ -46,7 +46,7 @@ class UserController extends Controller {
     }
 
     try {
-      final MyHttpResponse cr = await httpClient.get('${PATH.forgottenLandApi}/character/${nameCtrl.text}');
+      final MyHttpResponse cr = await httpClient.get('${env[EnvVar.pathForgottenLandApi]}/character/${nameCtrl.text}');
       if (!cr.success) {
         error = 'Character not found'.obs;
         isLoading.value = false;
@@ -54,7 +54,7 @@ class UserController extends Controller {
       }
 
       final MyHttpResponse response = await httpClient.post(
-        '${PATH.forgottenLandApi}/user/signup',
+        '${env[EnvVar.pathForgottenLandApi]}/user/signup',
         <String, dynamic>{
           'name': nameCtrl.text,
           'secret': sha256.convert(utf8.encode(nameCtrl.text + passwordCtrl.text)).toString(),
@@ -76,7 +76,7 @@ class UserController extends Controller {
 
     try {
       final MyHttpResponse response = await httpClient.post(
-        '${PATH.forgottenLandApi}/user/verify',
+        '${env[EnvVar.pathForgottenLandApi]}/user/verify',
         <String, dynamic>{
           'name': nameCtrl.text,
         },
@@ -104,7 +104,7 @@ class UserController extends Controller {
 
     try {
       final MyHttpResponse response = await httpClient.post(
-        '${PATH.forgottenLandApi}/user/signin',
+        '${env[EnvVar.pathForgottenLandApi]}/user/signin',
         <String, dynamic>{
           'name': nameCtrl.text,
           'secret': sha256.convert(utf8.encode(nameCtrl.text + passwordCtrl.text)).toString(),

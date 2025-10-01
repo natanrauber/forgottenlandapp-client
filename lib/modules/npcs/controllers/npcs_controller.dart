@@ -1,9 +1,11 @@
-import '../../../controllers/controller.dart';
-import '../../../utils/src/paths.dart';
-import '../../../views/widgets/src/fields/custom_text_field.widget.dart';
 import 'package:forgottenlandapp_adapters/adapters.dart';
 import 'package:forgottenlandapp_models/models.dart';
+import 'package:forgottenlandapp_utils/utils.dart';
 import 'package:get/get.dart';
+
+import '../../../controllers/controller.dart';
+import '../../../main.dart';
+import '../../../views/widgets/src/fields/custom_text_field.widget.dart';
 
 class NpcsController extends Controller {
   NpcsController(this.httpClient);
@@ -22,7 +24,7 @@ class NpcsController extends Controller {
     if (_rawList.isNotEmpty) return null;
 
     isLoading.value = true;
-    response = await httpClient.get('${PATH.forgottenLandApi}/npcs');
+    response = await httpClient.get('${env[EnvVar.pathForgottenLandApi]}/npcs');
 
     if (response.success && response.dataAsMap['data'] is List) {
       for (final dynamic e in response.dataAsMap['data'] as List<dynamic>) {
@@ -39,7 +41,7 @@ class NpcsController extends Controller {
     if (isLoadingNpc.value) return null;
 
     isLoadingNpc.value = true;
-    response = await httpClient.get('${PATH.forgottenLandApi}/npcs/${npc.name?.replaceAll(' ', '_')}');
+    response = await httpClient.get('${env[EnvVar.pathForgottenLandApi]}/npcs/${npc.name?.replaceAll(' ', '_')}');
 
     if (response.success) npc.updateFromJson(response.dataAsMap);
 
