@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:forgottenlandapp_designsystem/designsystem.dart';
 import 'package:forgottenlandapp_models/models.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-import '../../../../controllers/character_controller.dart';
-import '../../../../theme/colors.dart';
 import '../../../../utils/utils.dart';
-import '../../../../views/widgets/src/other/better_text.dart';
+import '../../../character/controllers/character_controller.dart';
 
 class AuctionWidget extends StatefulWidget {
   const AuctionWidget(this.item);

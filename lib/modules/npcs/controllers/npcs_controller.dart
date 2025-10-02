@@ -1,11 +1,11 @@
 import 'package:forgottenlandapp_adapters/adapters.dart';
+import 'package:forgottenlandapp_designsystem/designsystem.dart';
 import 'package:forgottenlandapp_models/models.dart';
 import 'package:forgottenlandapp_utils/utils.dart';
 import 'package:get/get.dart';
 
-import '../../../controllers/controller.dart';
+import '../../../core/controller.dart';
 import '../../../main.dart';
-import '../../../views/widgets/src/fields/custom_text_field.widget.dart';
 
 class NpcsController extends Controller {
   NpcsController(this.httpClient);

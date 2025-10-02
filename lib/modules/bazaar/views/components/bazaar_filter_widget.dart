@@ -1,15 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:forgottenlandapp_designsystem/designsystem.dart';
 import 'package:forgottenlandapp_models/models.dart';
 import 'package:forgottenlandapp_utils/utils.dart';
 import 'package:get/get.dart';
 
-import '../../../../controllers/worlds_controller.dart';
-import '../../../../theme/colors.dart';
 import '../../../../utils/utils.dart';
-import '../../../../views/widgets/src/images/svg_image.dart';
-import '../../../../views/widgets/widgets.dart';
+import '../../../shared/controllers/worlds_controller.dart';
 import '../../controllers/bazaar_controller.dart';
 
 class BazaarFilters extends StatefulWidget {

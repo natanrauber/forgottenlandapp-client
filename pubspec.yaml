@@ -12,6 +12,10 @@ dependencies:
     sdk: flutter
   flutter_web_plugins:
     sdk: flutter
+  forgottenlandapp_designsystem:
+    git:
+      url: "https://github.com/natanrauber/forgottenlandapp-designsystem"
+      ref: master
   forgottenlandapp_models:
     git:
       url: "https://github.com/natanrauber/forgottenlandapp-models"

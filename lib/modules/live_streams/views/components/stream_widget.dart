@@ -1,13 +1,11 @@
 import 'package:flutter/cupertino.dart';
+import 'package:forgottenlandapp_designsystem/designsystem.dart';
 import 'package:forgottenlandapp_models/models.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-import '../../../../controllers/character_controller.dart';
-import '../../../../theme/colors.dart';
 import '../../../../utils/utils.dart';
-import '../../../../views/widgets/src/images/web_image.dart';
-import '../../../../views/widgets/src/other/better_text.dart';
+import '../../../character/controllers/character_controller.dart';
 
 class StreamWidget extends StatefulWidget {
   const StreamWidget(this.item);

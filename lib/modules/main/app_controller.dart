@@ -4,14 +4,14 @@ import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:forgottenlandapp_designsystem/designsystem.dart';
 import 'package:get/get.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
 
-import '../../controllers/controller.dart';
-import '../../theme/colors.dart';
-import '../../utils/utils.dart';
-import '../splash/splash_page.dart';
+import '../../core/controller.dart';
+import '../../core/routes.dart';
+import '../shared/views/pages/splash_page.dart';
 
 class AppController extends Controller {
   bool visitedSplash = false;

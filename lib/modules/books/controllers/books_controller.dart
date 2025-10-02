@@ -3,9 +3,9 @@ import 'package:forgottenlandapp_models/models.dart';
 import 'package:forgottenlandapp_utils/utils.dart';
 import 'package:get/get.dart';
 
-import '../../../controllers/controller.dart';
+import '../../../core/controller.dart';
 import '../../../main.dart';
-import '../../../views/widgets/src/fields/custom_text_field.widget.dart';
+import 'package:forgottenlandapp_designsystem/designsystem.dart';
 
 class BooksController extends Controller {
   BooksController(this.httpClient);

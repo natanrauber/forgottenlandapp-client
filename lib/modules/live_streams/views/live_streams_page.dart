@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:forgottenlandapp_models/models.dart';
 import 'package:get/get.dart';
 
-import '../../../theme/colors.dart';
-import '../../../theme/theme.dart';
-import '../../../views/widgets/src/other/app_page.dart';
-import '../../../views/widgets/src/other/error_builder.dart';
+import 'package:forgottenlandapp_designsystem/designsystem.dart';
+
+import '../../shared/views/widgets/other/app_page.dart';
+
 import '../controllers/live_streams_controller.dart';
 import 'components/stream_widget.dart';
 

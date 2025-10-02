@@ -1,9 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'modules/main/app_binding.dart';
-import 'theme/theme.dart';
-import 'utils/utils.dart';
+import 'package:forgottenlandapp_designsystem/designsystem.dart';
 import 'package:get/get.dart';
+
+import 'core/routes.dart';
+import 'modules/main/app_binding.dart';
 
 class ForgottenLand extends StatelessWidget {
   @override

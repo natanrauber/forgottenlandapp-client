@@ -3,11 +3,10 @@ import 'package:forgottenlandapp_models/models.dart';
 import 'package:forgottenlandapp_utils/utils.dart';
 import 'package:get/get_rx/get_rx.dart';
 
-import '../../../controllers/controller.dart';
-import '../../../controllers/worlds_controller.dart';
+import '../../../core/controller.dart';
+import '../../shared/controllers/worlds_controller.dart';
 import '../../../main.dart';
-import '../../../rxmodels/world_rxmodel.dart';
-import '../../../views/widgets/src/fields/custom_text_field.widget.dart';
+import 'package:forgottenlandapp_designsystem/designsystem.dart';
 
 class BazaarController extends Controller {
   BazaarController({required this.httpClient, required this.worldsCtrl});
@@ -19,7 +18,7 @@ class BazaarController extends Controller {
   RxList<Auction> filteredList = <Auction>[].obs;
 
   TextController searchController = TextController();
-  RxWorld world = World(name: 'All').obs;
+  Rx<World> world = World(name: 'All').obs;
   RxString battleyeType = LIST.battleyeType.first.obs;
   RxString location = LIST.location.first.obs;
   RxString pvpType = LIST.pvpType.first.obs;

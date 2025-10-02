@@ -3,15 +3,12 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:forgottenlandapp_designsystem/designsystem.dart';
 import 'package:forgottenlandapp_models/models.dart';
 import 'package:forgottenlandapp_utils/utils.dart';
 import 'package:get/get.dart';
 
 import '../../../../main.dart';
-import '../../../../theme/colors.dart';
-import '../../../../views/widgets/src/images/web_image.dart';
-import '../../../../views/widgets/src/other/better_text.dart';
-import '../../../../views/widgets/src/other/clickable_container.dart';
 import '../../controllers/books_controller.dart';
 
 class BookWidget extends StatefulWidget {

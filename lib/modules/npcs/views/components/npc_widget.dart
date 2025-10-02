@@ -5,10 +5,8 @@ import 'package:forgottenlandapp_utils/utils.dart';
 import 'package:get/get.dart';
 
 import '../../../../main.dart';
-import '../../../../theme/colors.dart';
-import '../../../../views/widgets/src/images/web_image.dart';
-import '../../../../views/widgets/src/other/better_text.dart';
-import '../../../../views/widgets/src/other/clickable_container.dart';
+import 'package:forgottenlandapp_designsystem/designsystem.dart';
+
 import '../../controllers/npcs_controller.dart';
 
 class NpcWidget extends StatefulWidget {

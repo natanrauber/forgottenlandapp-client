@@ -1,7 +1,7 @@
 import 'package:forgottenlandapp_adapters/adapters.dart';
 import 'package:forgottenlandapp_utils/utils.dart';
 
-import '../../../controllers/controller.dart';
+import '../../../core/controller.dart';
 import '../../../main.dart';
 import '../models/feature_model.dart';
 

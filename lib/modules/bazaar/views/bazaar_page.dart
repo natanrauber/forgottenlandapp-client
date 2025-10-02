@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:forgottenlandapp_designsystem/designsystem.dart';
 import 'package:forgottenlandapp_models/models.dart';
 import 'package:get/get.dart';
 
-import '../../../theme/colors.dart';
-import '../../../views/widgets/src/other/app_page.dart';
+import '../../shared/views/widgets/other/app_page.dart';
 import '../controllers/bazaar_controller.dart';
 import 'components/auction_widget.dart';
 import 'components/bazaar_filter_widget.dart';
