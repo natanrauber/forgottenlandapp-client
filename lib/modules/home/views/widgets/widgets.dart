@@ -1,5 +1,6 @@
 export './home_screen_grid.dart';
 export './news_widget.dart';
+export './overview_all.dart';
 export './overview_experience.dart';
 export './overview_expgain.dart';
 export './overview_online.dart';

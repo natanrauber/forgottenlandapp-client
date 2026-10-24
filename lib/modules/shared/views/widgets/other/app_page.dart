@@ -6,10 +6,12 @@ import 'package:get/get.dart';
 import 'package:screenshot/screenshot.dart';
 
 import '../../../../../core/routes.dart';
+import '../../../../../utils/utils.dart';
+import '../../../../home/home.dart';
+import '../../../../home/views/widgets/features_menu.dart';
 import '../../../../main/app_controller.dart';
 import '../../../../settings/controllers/settings_controller.dart';
 import '../../../../settings/models/feature_model.dart';
-import '../../../../../utils/utils.dart';
 import '../footer/app_footer.dart';
 import '../header/app_header.dart';
 
@@ -21,7 +23,7 @@ class AppPage extends StatefulWidget {
     this.postFrameCallback,
     this.onRefresh,
     this.onNotification,
-    this.padding = const EdgeInsets.fromLTRB(16, 16, 16, 60),
+    this.padding = const EdgeInsets.fromLTRB(12, 12, 12, 60),
     this.canPop = true,
     this.maxWidth = 800,
     this.fullScreen = false,
@@ -64,16 +66,8 @@ class _AppPageState extends State<AppPage> {
 
   @override
   Widget build(BuildContext context) {
-    final double maxWidth = widget.fullScreen ? 1280 : widget.maxWidth;
     final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
-    final double appBarHeight = AppHeader().preferredSize.height;
-    double topMargin = height > 700 ? height - 700 : 0;
-    if (topMargin > height * 0.18) topMargin = height * 0.18;
-    final double sideMargin = width > maxWidth ? ((width / 2) - (maxWidth / 2)) + 0 : 0;
-    if (topMargin > sideMargin) topMargin = sideMargin;
-    if (width < 800) topMargin = 0;
-    if (widget.topWidget != null) topMargin = 0;
 
     return PopScope(
       canPop: widget.canPop,
@@ -91,53 +85,52 @@ class _AppPageState extends State<AppPage> {
                 onRefresh: widget.onRefresh ?? () async {},
                 child: NotificationListener<ScrollNotification>(
                   onNotification: widget.onNotification,
-                  child: Stack(
-                    alignment: Alignment.bottomCenter,
-                    children: <Widget>[
-                      //
-                      Container(
-                        margin: EdgeInsets.fromLTRB(
-                          sideMargin,
-                          topMargin == 0 && widget.topWidget == null ? 0 : height / 2,
-                          sideMargin,
-                          0,
-                        ),
-                        constraints: BoxConstraints(minHeight: height - appBarHeight - topMargin),
-                        decoration: _bodyDecoration,
-                      ),
-
-                      SingleChildScrollView(
-                        physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
-                        child: Column(
-                          children: <Widget>[
-                            if (widget.topWidget != null)
+                  child: SingleChildScrollView(
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    padding: width >= 600 ? EdgeInsets.fromLTRB(16, 16, 16, 0) : EdgeInsets.zero,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        if (MediaQuery.of(context).size.width >= 800) ...<Widget>[
+                          FeaturesMenu(),
+                          const SizedBox(width: 16),
+                        ],
+                        Expanded(
+                          flex: 5,
+                          child: Column(
+                            children: <Widget>[
+                              if (widget.topWidget != null) ...<Widget>[
+                                widget.topWidget!,
+                                const SizedBox(height: 12),
+                              ],
                               Container(
-                                margin: EdgeInsets.symmetric(vertical: 16, horizontal: sideMargin),
-                                child: widget.topWidget,
-                              ),
-                            Container(
-                              margin: EdgeInsets.fromLTRB(sideMargin, topMargin, sideMargin, 0),
-                              decoration: _bodyDecoration,
-                              child: Column(
-                                children: <Widget>[
-                                  //
-                                  SingleChildScrollView(
-                                    physics: const NeverScrollableScrollPhysics(),
-                                    padding: widget.padding,
-                                    child: Container(
-                                      constraints: _bodyConstraints,
-                                      child: _featureDisabled ? _disabledPageBody() : widget.body ?? Container(),
+                                decoration: _bodyDecoration,
+                                child: Column(
+                                  children: <Widget>[
+                                    SingleChildScrollView(
+                                      physics: const NeverScrollableScrollPhysics(),
+                                      padding: widget.padding,
+                                      child: Container(
+                                        constraints: _bodyConstraints,
+                                        child: _featureDisabled ? _disabledPageBody() : widget.body ?? Container(),
+                                      ),
                                     ),
-                                  ),
-
-                                  AppFooter(),
-                                ],
+                                    AppFooter(),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                        if (MediaQuery.of(context).size.width >= 1000) ...<Widget>[
+                          const SizedBox(width: 16),
+                          Expanded(
+                            flex: 3,
+                            child: OverviewAll(),
+                          ),
+                        ],
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -210,7 +203,7 @@ class _AppPageState extends State<AppPage> {
     width = MediaQuery.of(context).size.width;
     topMargin = height > 700 ? height - 700 : 0;
     if (topMargin > height * 0.18) topMargin = height * 0.18;
-    borderRadius = (width >= widget.maxWidth) ? 8 : 0;
+    borderRadius = (width >= widget.maxWidth) ? 6 : 0;
 
     return BoxDecoration(
       borderRadius: BorderRadius.only(

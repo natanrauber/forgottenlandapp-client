@@ -30,31 +30,31 @@ class _OverviewOnlineState extends State<OverviewOnline> {
   Widget _title() => Container(
         height: 22,
         padding: const EdgeInsets.only(left: 3),
-        child: const SelectableText(
+        child: SelectableText(
           'Online now',
           style: TextStyle(
-            fontSize: 14,
-            height: 22 / 14,
+            fontSize: 13,
+            height: 22 / 13,
           ),
         ),
       );
 
   Widget _body() => ShimmerLoading(
-        isLoading: homeCtrl.overviewOnline.isEmpty && homeCtrl.isLoading.value,
+        isLoading: homeCtrl.overviewOnline.isEmpty && homeCtrl.isLoadingOverview.value,
         child: ClickableContainer(
           height: 695,
-          enabled: !homeCtrl.isLoading.value && homeCtrl.overviewOnline.isEmpty,
+          enabled: !homeCtrl.isLoadingOverview.value && homeCtrl.overviewOnline.isEmpty,
           onTap: homeCtrl.getOverview,
           alignment: Alignment.centerLeft,
           padding: const EdgeInsets.all(12),
           color: AppColors.bgPaper,
           hoverColor: AppColors.bgHover,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(5),
           ),
           child: Builder(
             builder: (_) {
-              if (homeCtrl.overviewOnline.isEmpty && homeCtrl.isLoading.value) return _loading();
+              if (homeCtrl.overviewOnline.isEmpty && homeCtrl.isLoadingOverview.value) return _loading();
               if (homeCtrl.overviewOnline.isEmpty) return _reloadButton();
               if (homeCtrl.overviewOnline.isNotEmpty) return _listBuilder();
               return Container();
@@ -107,7 +107,7 @@ class _OverviewOnlineState extends State<OverviewOnline> {
         margin: const EdgeInsets.only(bottom: 6),
         child: Row(
           children: <Widget>[
-            if (homeCtrl.isLoading.value) const SizedBox(width: 10) else _onlineIndicator(),
+            if (homeCtrl.isLoadingOverview.value) const SizedBox(width: 10) else _onlineIndicator(),
             const SizedBox(width: 9),
             _itemName(item),
             const SizedBox(width: 10),
@@ -126,8 +126,8 @@ class _OverviewOnlineState extends State<OverviewOnline> {
           item.name ?? '',
           maxLines: 1,
           style: const TextStyle(
-            fontSize: 12,
-            height: 19 / 12,
+            fontSize: 11,
+            height: 19 / 11,
             overflow: TextOverflow.ellipsis,
           ),
         ),
@@ -137,8 +137,8 @@ class _OverviewOnlineState extends State<OverviewOnline> {
         '${item.world?.name ?? ''} <blue>${item.level?.toString() ?? ''}<blue>',
         selectable: false,
         style: TextStyle(
-          fontSize: 12,
-          height: 19 / 12,
+          fontSize: 11,
+          height: 19 / 11,
           color: AppColors.textSecondary.withValues(alpha: 0.5),
           overflow: TextOverflow.ellipsis,
         ),
@@ -152,7 +152,7 @@ class _OverviewOnlineState extends State<OverviewOnline> {
         hoverColor: AppColors.bgHover,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(4),
         ),
         child: const Text(
           'See all',

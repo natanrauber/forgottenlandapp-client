@@ -5,15 +5,16 @@ import 'package:forgottenlandapp_models/models.dart';
 import 'package:forgottenlandapp_utils/utils.dart';
 import 'package:get/get.dart';
 
-import '../../../main.dart';
-import '../../../core/routes.dart';
 import '../../../core/controller.dart';
+import '../../../core/routes.dart';
+import '../../../main.dart';
 
 class HomeController extends Controller {
   HomeController(this.httpClient);
 
   final IHttpClient httpClient;
 
+  RxBool isLoadingOverview = false.obs;
   RxList<News> news = <News>[].obs;
   RxList<HighscoresEntry> overviewExpgain = <HighscoresEntry>[].obs;
   RxList<HighscoresEntry> overviewOnlinetime = <HighscoresEntry>[].obs;
@@ -30,9 +31,7 @@ class HomeController extends Controller {
 
     if (response.success) {
       final List<News> aux = <News>[];
-      for (final dynamic item in response.dataAsMap['news'] as List<dynamic>) {
-        aux.add(News.fromJson(item as Map<String, dynamic>));
-      }
+      aux.addAll((response.dataAsMap['news'] as List<dynamic>).map((dynamic e) => News.fromJson(e)).toList());
       news.value = aux.toList();
     }
 
@@ -40,8 +39,13 @@ class HomeController extends Controller {
     return response;
   }
 
+  Future<MyHttpResponse> getNewsContent({required News news}) async {
+    final MyHttpResponse response = await httpClient.get('${env[EnvVar.pathTibiaDataApi]}/news/id/${news.id}');
+    return response;
+  }
+
   Future<MyHttpResponse> getOverview() async {
-    isLoading.value = true;
+    isLoadingOverview.value = true;
 
     final MyHttpResponse response = await httpClient.get('${env[EnvVar.pathForgottenLandApi]}/highscores/overview');
 
@@ -57,7 +61,7 @@ class HomeController extends Controller {
       overviewOnline.value = overview.online.map((OnlineEntry e) => HighscoresEntry.fromOnlineEntry(e)).toList();
     }
 
-    isLoading.value = false;
+    isLoadingOverview.value = false;
     return response;
   }
 

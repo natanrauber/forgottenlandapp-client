@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:forgottenlandapp_designsystem/designsystem.dart';
 import 'package:forgottenlandapp_models/models.dart';
 import 'package:forgottenlandapp_utils/utils.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
@@ -6,7 +7,6 @@ import 'package:get/instance_manager.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../controllers/home_controller.dart';
-import 'package:forgottenlandapp_designsystem/designsystem.dart';
 
 class NewsWidget extends StatefulWidget {
   @override
@@ -29,11 +29,11 @@ class _NewsWidgetState extends State<NewsWidget> {
   Widget _title() => Container(
         height: 22,
         padding: const EdgeInsets.only(left: 3),
-        child: const SelectableText(
+        child: SelectableText(
           'Latest news',
           style: TextStyle(
-            fontSize: 14,
-            height: 22 / 14,
+            fontSize: 13,
+            height: 22 / 13,
           ),
         ),
       );
@@ -44,12 +44,11 @@ class _NewsWidgetState extends State<NewsWidget> {
           child: ClickableContainer(
             enabled: homeCtrl.news.isEmpty,
             onTap: homeCtrl.getNews,
-            height: MediaQuery.of(context).size.width >= 600 ? 511 : null,
-            padding: const EdgeInsets.all(12),
-            color: AppColors.bgPaper,
+            // constraints: BoxConstraints(minHeight: 1000),
+            color: AppColors.bgDefault,
             hoverColor: AppColors.bgHover,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(5),
             ),
             child: Builder(
               builder: (_) {
@@ -89,31 +88,22 @@ class _NewsWidgetState extends State<NewsWidget> {
         ),
       );
 
-  Widget _listBuilder() => Flex(
-        direction: MediaQuery.of(context).size.width >= 600 ? Axis.vertical : Axis.horizontal,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          if (homeCtrl.news.isNotEmpty) _item(homeCtrl.news[0]),
-          if (homeCtrl.news.length >= 2) const SizedBox(height: 10, width: 10),
-          if (homeCtrl.news.length >= 2) _item(homeCtrl.news[1]),
+  Widget _listBuilder() {
+    final bool wideBody = MediaQuery.of(context).size.width >= 600;
+    final List<News> items = wideBody ? homeCtrl.news.toList() : homeCtrl.news.take(2).toList();
 
-          //
-          if (homeCtrl.news.length >= 3 && MediaQuery.of(context).size.width >= 600)
-            const SizedBox(height: 10, width: 10),
-          if (homeCtrl.news.length >= 3 && MediaQuery.of(context).size.width >= 600) _item(homeCtrl.news[2]),
-
-          //
-          if (homeCtrl.news.length >= 4 && MediaQuery.of(context).size.width >= 600)
-            const SizedBox(height: 10, width: 10),
-          if (homeCtrl.news.length >= 4 && MediaQuery.of(context).size.width >= 600) _item(homeCtrl.news[3]),
-
-          //
-          if (homeCtrl.news.length >= 5 && MediaQuery.of(context).size.width >= 600)
-            const SizedBox(height: 10, width: 10),
-          if (homeCtrl.news.length >= 5 && MediaQuery.of(context).size.width >= 600) _item(homeCtrl.news[4]),
+    return Flex(
+      direction: wideBody ? Axis.vertical : Axis.horizontal,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: <Widget>[
+        for (int i = 0; i < items.length; i++) ...<Widget>[
+          if (i > 0) const SizedBox(height: 10, width: 10),
+          _item(items[i]),
         ],
-      );
+      ],
+    );
+  }
 
   Widget _item(News item) {
     if (MediaQuery.of(context).size.width >= 600) return _itemBody(item);
@@ -122,13 +112,12 @@ class _NewsWidgetState extends State<NewsWidget> {
 
   Widget _itemBody(News item) => ClickableContainer(
         onTap: () => _openSelectedNews(item),
-        height: 89,
         padding: const EdgeInsets.all(12),
         alignment: Alignment.centerLeft,
-        color: AppColors.bgDefault.withValues(alpha: 0.75),
+        color: AppColors.bgPaper,
         hoverColor: AppColors.bgHover,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(5),
           border: item.date == DT.tibia.today()
               ? Border.all(
                   color: AppColors.primary,
@@ -148,12 +137,10 @@ class _NewsWidgetState extends State<NewsWidget> {
               ),
             ),
 
-            const SizedBox(height: 3),
-
             Text(
-              MediaQuery.of(context).size.width > 600 ? 'Date: ${item.date ?? ''}' : item.date ?? '',
-              style: const TextStyle(
-                fontSize: 12,
+              '${item.date ?? ''} - ${item.category?.capitalizeString() ?? ''}',
+              style: TextStyle(
+                fontSize: 10,
                 color: AppColors.textSecondary,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -161,16 +148,20 @@ class _NewsWidgetState extends State<NewsWidget> {
 
             const SizedBox(height: 2),
 
-            Text(
-              MediaQuery.of(context).size.width > 600
-                  ? 'Category: ${item.category?.capitalizeString() ?? ''}'
-                  : item.category?.capitalizeString() ?? '',
-              style: const TextStyle(
-                fontSize: 12,
-                color: AppColors.textSecondary,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
+            // Expanded(
+            //   child: Text(
+            //     item.content ?? '',
+            //     maxLines: 4,
+            //     textAlign: TextAlign.start,
+            //     style: const TextStyle(
+            //       fontSize: 11,
+            //       letterSpacing: -0.3,
+            //       wordSpacing: -2,
+            //       color: AppColors.textSecondary,
+            //       overflow: TextOverflow.ellipsis,
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       );

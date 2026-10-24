@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:forgottenlandapp_designsystem/designsystem.dart';
 import 'package:get/get.dart';
 
-import 'package:forgottenlandapp_designsystem/designsystem.dart';
 import '../../../../core/routes.dart';
-
 import '../../../highscores/highscores.dart';
 import '../../../settings/controllers/settings_controller.dart';
 import '../../../settings/models/feature_model.dart';
@@ -73,6 +72,11 @@ class _HomeScreenGridState extends State<HomeScreenGrid> {
         },
       );
 
+  Widget _gridWide() => _grid(
+        list: _highscoresButtons + _otherButtons + _libraryButtons,
+        asRow: true,
+      );
+
   Widget _gridNarrow() => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -99,11 +103,6 @@ class _HomeScreenGridState extends State<HomeScreenGrid> {
           const SizedBox(height: 16),
           _grid(name: 'Library', list: _libraryButtons),
         ],
-      );
-
-  Widget _gridWide() => _grid(
-        list: _highscoresButtons + _otherButtons + _libraryButtons,
-        asRow: true,
       );
 
   Widget _grid({String? name, required List<GridButtonModel> list, bool asRow = false}) {

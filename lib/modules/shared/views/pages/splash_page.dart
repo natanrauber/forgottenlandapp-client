@@ -3,6 +3,7 @@ import 'package:forgottenlandapp_designsystem/designsystem.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/routes.dart';
+import '../../../home/controllers/home_controller.dart';
 import '../widgets/header/app_header.dart';
 import '../../../highscores/controllers/highscores_controller.dart';
 import '../../../main/app_controller.dart';
@@ -25,8 +26,9 @@ class _SplashPageState extends State<SplashPage> {
 
   final AppController appCtrl = Get.find<AppController>();
   final HighscoresController highscoresCtrl = Get.find<HighscoresController>();
-  final UserController userCtrl = Get.find<UserController>();
+  final HomeController homeCtrl = Get.find<HomeController>();
   final SettingsController settingsCtrl = Get.find<SettingsController>();
+  final UserController userCtrl = Get.find<UserController>();
   final WorldsController worldsCtrl = Get.find<WorldsController>();
 
   @override
@@ -40,6 +42,7 @@ class _SplashPageState extends State<SplashPage> {
         await userCtrl.retrieveSession();
         await settingsCtrl.getFeatures();
         await worldsCtrl.getWorlds();
+        homeCtrl.getOverview();
         _redirect();
       },
     );
