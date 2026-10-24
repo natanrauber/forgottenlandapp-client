@@ -3,7 +3,6 @@ import 'package:forgottenlandapp_models/models.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/routes.dart';
-import '../../../highscores/controllers/highscores_controller.dart';
 import '../../controllers/home_controller.dart';
 import 'overview.dart';
 
@@ -13,13 +12,12 @@ class OverviewExperience extends StatefulWidget {
 }
 
 class _OverviewExperienceState extends State<OverviewExperience> {
-  final HighscoresController highscoresCtrl = Get.find<HighscoresController>();
   final HomeController homeCtrl = Get.find<HomeController>();
 
   @override
   Widget build(BuildContext context) => Obx(
         () => OverviewWidget(
-          isEnabled: !homeCtrl.isLoadingOverview.value && homeCtrl.overviewExperience.isNotEmpty,
+          isEnabled: !homeCtrl.isLoadingOverview.value,
           isLoading: homeCtrl.isLoadingOverview.value && homeCtrl.overviewExperience.isEmpty,
           title: 'Top level',
           onTap: _onTap,

@@ -3,7 +3,6 @@ import 'package:forgottenlandapp_models/models.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/routes.dart';
-import '../../../highscores/controllers/highscores_controller.dart';
 import '../../controllers/home_controller.dart';
 import 'overview.dart';
 
@@ -13,13 +12,12 @@ class OverviewRookmaster extends StatefulWidget {
 }
 
 class _OverviewRookmasterState extends State<OverviewRookmaster> {
-  final HighscoresController highscoresCtrl = Get.find<HighscoresController>();
   final HomeController homeCtrl = Get.find<HomeController>();
 
   @override
   Widget build(BuildContext context) => Obx(
         () => OverviewWidget(
-          isEnabled: !homeCtrl.isLoadingOverview.value && homeCtrl.overviewRookmaster.isNotEmpty,
+          isEnabled: !homeCtrl.isLoadingOverview.value,
           isLoading: homeCtrl.isLoadingOverview.value && homeCtrl.overviewRookmaster.isEmpty,
           title: 'Rook Master',
           onTap: _onTap,

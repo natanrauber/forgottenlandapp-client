@@ -21,7 +21,7 @@ class _OverviewOnlinetimeState extends State<OverviewOnlinetime> {
   @override
   Widget build(BuildContext context) => Obx(
         () => OverviewWidget(
-          isEnabled: !homeCtrl.isLoadingOverview.value && homeCtrl.overviewOnlinetime.isNotEmpty,
+          isEnabled: !homeCtrl.isLoadingOverview.value,
           isLoading: homeCtrl.isLoadingOverview.value && homeCtrl.overviewOnlinetime.isEmpty,
           title: 'Online time',
           onTap: _onTap,

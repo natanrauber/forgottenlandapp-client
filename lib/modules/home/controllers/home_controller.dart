@@ -24,29 +24,35 @@ class HomeController extends Controller {
 
   Timer? timerOverview;
   Timer? timerNews;
+  Future<MyHttpResponse>? _overviewRequest;
 
   Future<MyHttpResponse> getNews({bool showLoading = true}) async {
     if (showLoading) isLoading.value = true;
     final MyHttpResponse response = await httpClient.get('${env[EnvVar.pathTibiaDataApi]}/news/latest');
 
     if (response.success) {
-      final List<News> aux = <News>[];
-      aux.addAll((response.dataAsMap['news'] as List<dynamic>).map((dynamic e) => News.fromJson(e)).toList());
-      news.value = aux.toList();
+      news.value = (response.dataAsMap['news'] as List<dynamic>).map((dynamic e) => News.fromJson(e)).toList();
     }
 
     isLoading.value = false;
     return response;
   }
 
-  Future<MyHttpResponse> getNewsContent({required News news}) async {
-    final MyHttpResponse response = await httpClient.get('${env[EnvVar.pathTibiaDataApi]}/news/id/${news.id}');
-    return response;
+  Future<MyHttpResponse> getOverview() async {
+    if (_overviewRequest != null) return _overviewRequest!;
+
+    isLoadingOverview.value = true;
+    _overviewRequest = _fetchOverview();
+
+    try {
+      return await _overviewRequest!;
+    } finally {
+      _overviewRequest = null;
+      isLoadingOverview.value = false;
+    }
   }
 
-  Future<MyHttpResponse> getOverview() async {
-    isLoadingOverview.value = true;
-
+  Future<MyHttpResponse> _fetchOverview() async {
     final MyHttpResponse response = await httpClient.get('${env[EnvVar.pathForgottenLandApi]}/highscores/overview');
 
     if (response.success) {
@@ -61,7 +67,6 @@ class HomeController extends Controller {
       overviewOnline.value = overview.online.map((OnlineEntry e) => HighscoresEntry.fromOnlineEntry(e)).toList();
     }
 
-    isLoadingOverview.value = false;
     return response;
   }
 
@@ -70,8 +75,7 @@ class HomeController extends Controller {
       timerOverview = Timer.periodic(
         const Duration(minutes: 5),
         (_) {
-          if (Get.currentRoute != Routes.home.name) return;
-          if (isLoading.value) return;
+          if (isLoadingOverview.value) return;
           getOverview();
         },
       );

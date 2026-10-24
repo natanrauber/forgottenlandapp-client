@@ -44,7 +44,6 @@ class _NewsWidgetState extends State<NewsWidget> {
           child: ClickableContainer(
             enabled: homeCtrl.news.isEmpty,
             onTap: homeCtrl.getNews,
-            // constraints: BoxConstraints(minHeight: 1000),
             color: AppColors.bgDefault,
             hoverColor: AppColors.bgHover,
             decoration: BoxDecoration(
@@ -146,22 +145,6 @@ class _NewsWidgetState extends State<NewsWidget> {
               ),
             ),
 
-            const SizedBox(height: 2),
-
-            // Expanded(
-            //   child: Text(
-            //     item.content ?? '',
-            //     maxLines: 4,
-            //     textAlign: TextAlign.start,
-            //     style: const TextStyle(
-            //       fontSize: 11,
-            //       letterSpacing: -0.3,
-            //       wordSpacing: -2,
-            //       color: AppColors.textSecondary,
-            //       overflow: TextOverflow.ellipsis,
-            //     ),
-            //   ),
-            // ),
           ],
         ),
       );

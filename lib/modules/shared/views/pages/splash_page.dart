@@ -43,6 +43,7 @@ class _SplashPageState extends State<SplashPage> {
         await settingsCtrl.getFeatures();
         await worldsCtrl.getWorlds();
         homeCtrl.getOverview();
+        homeCtrl.runTimer();
         _redirect();
       },
     );

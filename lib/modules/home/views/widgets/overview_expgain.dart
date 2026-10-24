@@ -20,7 +20,7 @@ class _OverviewExpgainState extends State<OverviewExpgain> {
   @override
   Widget build(BuildContext context) => Obx(
         () => OverviewWidget(
-          isEnabled: !homeCtrl.isLoadingOverview.value && homeCtrl.overviewExpgain.isNotEmpty,
+          isEnabled: !homeCtrl.isLoadingOverview.value,
           isLoading: homeCtrl.isLoadingOverview.value && homeCtrl.overviewExpgain.isEmpty,
           title: 'Exp gained',
           onTap: _onTap,

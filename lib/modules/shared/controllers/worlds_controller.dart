@@ -13,9 +13,9 @@ class WorldsController extends Controller {
   final List<World> list = <World>[];
 
   /// [load worlds]
-  Future<MyHttpResponse?> getWorlds() async {
+  Future<MyHttpResponse?> getWorlds({bool force = false}) async {
     if (isLoading.value) return null;
-    if (list.isNotEmpty) return null;
+    if (!force && list.isNotEmpty) return null;
 
     list.clear();
     list.add(World(name: 'All'));

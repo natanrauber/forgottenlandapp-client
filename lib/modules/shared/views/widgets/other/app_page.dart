@@ -12,6 +12,7 @@ import '../../../../home/views/widgets/features_menu.dart';
 import '../../../../main/app_controller.dart';
 import '../../../../settings/controllers/settings_controller.dart';
 import '../../../../settings/models/feature_model.dart';
+import '../../../controllers/worlds_controller.dart';
 import '../footer/app_footer.dart';
 import '../header/app_header.dart';
 
@@ -46,7 +47,9 @@ class AppPage extends StatefulWidget {
 
 class _AppPageState extends State<AppPage> {
   AppController appCtrl = Get.find<AppController>();
+  final HomeController homeCtrl = Get.find<HomeController>();
   SettingsController settingsCtrl = Get.find<SettingsController>();
+  final WorldsController worldsCtrl = Get.find<WorldsController>();
 
   ScreenshotController screenshotCtrl = ScreenshotController();
 
@@ -63,6 +66,15 @@ class _AppPageState extends State<AppPage> {
   }
 
   void _logScreenEvent() => FirebaseAnalytics.instance.logEvent(name: 'page_${widget.screenName}');
+
+  Future<void> _onRefresh() async {
+    await Future.wait(<Future<dynamic>>[
+      settingsCtrl.getFeatures(force: true),
+      worldsCtrl.getWorlds(force: true),
+      homeCtrl.getOverview(),
+      if (widget.onRefresh != null) widget.onRefresh!(),
+    ]);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +94,7 @@ class _AppPageState extends State<AppPage> {
               width: width,
               decoration: _backgroundDecoration,
               child: RefreshIndicator(
-                onRefresh: widget.onRefresh ?? () async {},
+                onRefresh: _onRefresh,
                 child: NotificationListener<ScrollNotification>(
                   onNotification: widget.onNotification,
                   child: SingleChildScrollView(
@@ -194,16 +206,8 @@ class _AppPageState extends State<AppPage> {
       );
 
   BoxDecoration get _bodyDecoration {
-    double height;
-    double width;
-    double topMargin;
-    double borderRadius;
-
-    height = MediaQuery.of(context).size.height;
-    width = MediaQuery.of(context).size.width;
-    topMargin = height > 700 ? height - 700 : 0;
-    if (topMargin > height * 0.18) topMargin = height * 0.18;
-    borderRadius = (width >= widget.maxWidth) ? 6 : 0;
+    final double width = MediaQuery.of(context).size.width;
+    final double borderRadius = (width >= widget.maxWidth) ? 6 : 0;
 
     return BoxDecoration(
       borderRadius: BorderRadius.only(
@@ -215,22 +219,12 @@ class _AppPageState extends State<AppPage> {
   }
 
   BoxConstraints get _bodyConstraints {
-    double height;
-    double width;
-    double appBarHeight;
-    double topMargin;
-    double verticalPadding;
-
-    height = MediaQuery.of(context).size.height;
-    width = MediaQuery.of(context).size.width;
-    appBarHeight = AppHeader().preferredSize.height;
-    topMargin = height > 700 ? height - 700 : 0;
-    if (topMargin > height * 0.18) topMargin = height * 0.18;
-    if (width < 800) topMargin = 0;
-    verticalPadding = widget.padding?.along(Axis.vertical) ?? 0;
+    final double height = MediaQuery.of(context).size.height;
+    final double appBarHeight = AppHeader().preferredSize.height;
+    final double verticalPadding = widget.padding?.along(Axis.vertical) ?? 0;
 
     return BoxConstraints(
-      minHeight: height - appBarHeight - topMargin - verticalPadding,
+      minHeight: height - appBarHeight - verticalPadding,
     );
   }
 }

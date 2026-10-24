@@ -17,8 +17,12 @@ class _HomePageState extends State<HomePage> {
   final OnlineController onlineCtrl = Get.find<OnlineController>();
 
   Future<void> _loadHomeData() async {
-    if (homeCtrl.news.isEmpty) await homeCtrl.getNews();
+    await homeCtrl.getNews();
     homeCtrl.runTimer();
+  }
+
+  Future<void> _refreshHomeData() async {
+    await homeCtrl.getNews();
   }
 
   @override
@@ -27,7 +31,7 @@ class _HomePageState extends State<HomePage> {
         canPop: false,
         fullScreen: MediaQuery.of(context).size.width >= 1000,
         postFrameCallback: _loadHomeData,
-        onRefresh: _loadHomeData,
+        onRefresh: _refreshHomeData,
         body: Shimmer(
           child: Builder(
             builder: (_) {
@@ -39,10 +43,7 @@ class _HomePageState extends State<HomePage> {
         ),
       );
 
-  Widget _bodyWide() => Expanded(
-        flex: 3,
-        child: NewsWidget(),
-      );
+  Widget _bodyWide() => NewsWidget();
 
   Widget _bodyMedium() => Row(
         crossAxisAlignment: CrossAxisAlignment.start,

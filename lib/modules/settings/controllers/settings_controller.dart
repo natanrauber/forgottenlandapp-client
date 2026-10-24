@@ -12,11 +12,12 @@ class SettingsController extends Controller {
 
   List<Feature> features = <Feature>[];
 
-  Future<MyHttpResponse?> getFeatures() async {
+  Future<MyHttpResponse?> getFeatures({bool force = false}) async {
     if (isLoading.value) return null;
-    if (features.isNotEmpty) return null;
+    if (!force && features.isNotEmpty) return null;
 
     isLoading.value = true;
+    if (force) features.clear();
 
     final MyHttpResponse response = await httpClient.get('${env[EnvVar.pathForgottenLandApi]}/settings/features');
 
