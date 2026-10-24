@@ -2,7 +2,7 @@ name: forgottenland
 description: Forgotten Land App
 publish_to: "none"
 
-version: 25.10.01+1
+version: 26.10.24+1
 
 environment:
   sdk: "3.6.0"
